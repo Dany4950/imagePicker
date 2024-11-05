@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/bloc/counter/counter_bloc.dart';
-import 'package:flutter_application_1/bloc/counter/counter_event.dart';
-import 'package:flutter_application_1/bloc/counter/counter_state.dart';
+import 'package:flutter_application_1/bloc/counter_bloc/counter_bloc.dart';
+import 'package:flutter_application_1/bloc/counter_bloc/counter_event.dart';
+import 'package:flutter_application_1/bloc/counter_bloc/counter_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterHome extends StatefulWidget {
@@ -16,32 +16,28 @@ class _CounterHomeState extends State<CounterHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: BlocBuilder<CounterBloc, CounterState>(
-              builder: (context, state) {
-                return Text(
-                  state.counter.toString(),
-                  style: TextStyle(fontSize: 40),
-                );
-              },
-            ),
+          BlocBuilder<CounterBloc, CounterState>(
+            builder: (context, state) {
+              return Text(
+                state.count.toString(),
+                style: TextStyle(fontSize: 50),
+              );
+            },
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                  onPressed: () {},
-                  child: TextButton(
-                      onPressed: () {
-                        context.read<CounterBloc>().add(increamentCounter());
-                      },
-                      child: Text("Increase"))),
+                  onPressed: () {
+                    context.read<CounterBloc>().add(IncreamentCounter());
+                  },
+                  child: Text("Increase")),
               ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(decreamentCounter());
+                    context.read<CounterBloc>().add(DecreamentCounter());
                   },
                   child: Text("Decrease")),
             ],
