@@ -40,15 +40,28 @@ class _SliderHomeState extends State<SliderHome> {
           SizedBox(
             height: 40,
           ),
-          Container(
-            height: 400,
-            width: double.infinity,
-            color: Colors.blue.withOpacity(0.3),
+          BlocBuilder<SwitchBloc, SwitchState>(
+            builder: (context, state) {
+              return Container(
+                height: 400,
+                width: double.infinity,
+                color: Colors.blue.withOpacity(state.slider),
+              );
+            },
           ),
           SizedBox(
             height: 30,
           ),
-          Slider(value: 0.3, onChanged: (value) {})
+          BlocBuilder<SwitchBloc, SwitchState>(
+            builder: (context, state) {
+              return Slider(
+                  value: state.slider,
+                  onChanged: (value) {
+                    print(value);
+                    context.read<SwitchBloc>().add(SliderEvent(slider: value));
+                  });
+            },
+          )
         ],
       ),
     );
