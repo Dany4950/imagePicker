@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/switch_bloc/switch_event.dart';
+import 'package:flutter_application_1/switch_bloc/switch_o_bloc.dart';
+import 'package:flutter_application_1/switch_bloc/switch_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SliderHome extends StatefulWidget {
   const SliderHome({super.key});
@@ -22,7 +26,15 @@ class _SliderHomeState extends State<SliderHome> {
               SizedBox(
                 width: 40,
               ),
-              Switch(value: true, onChanged: (news) {})
+              BlocBuilder<SwitchBloc, SwitchState>(
+                builder: (context, state) {
+                  return Switch(
+                      value: state.isbool,
+                      onChanged: (news) {
+                        context.read<SwitchBloc>().add(EnableOrDisable());
+                      });
+                },
+              )
             ],
           ),
           SizedBox(
